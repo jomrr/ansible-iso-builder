@@ -1,0 +1,14 @@
+---
+
+- name: "PLAYBOOK | Create autoinstall iso"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: "TASK | Download iso file(s)"
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+        checksum: "{{ item.checksum }}"
+        mode: '0644'
+      loop: "{{ iso_files }}"
+      register: download_iso
